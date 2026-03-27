@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealityKit
 
 struct TemporalEchoVideoPanelView: View {
     @State private var coordinator = TemporalEchoCoordinator()
