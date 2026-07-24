@@ -1,0 +1,80 @@
+1
+00:00:00,000 --> 00:00:03,240
+Ich gehe seit 2011 zur WWDC.
+
+2
+00:00:03,240 --> 00:00:05,360
+Als Steve Jobs das letzte Mal dort sprach,
+
+3
+00:00:05,360 --> 00:00:07,260
+Und jedes Jahr versuche ich zu erraten,
+
+4
+00:00:07,260 --> 00:00:10,680
+Wird Apple etwas völlig Neues herausbringen?
+
+5
+00:00:10,680 --> 00:00:12,900
+Oder sie machen nur das letzte Jahr
+
+6
+00:00:12,900 --> 00:00:14,160
+10% besser.
+
+7
+00:00:14,160 --> 00:00:17,520
+Als Apple ARKit zum ersten Mal vorstellte, war ich wirklich aufgeregt.
+
+8
+00:00:17,520 --> 00:00:20,040
+Aber nach ein paar Versionen begann ich mich zu fragen:
+
+9
+00:00:20,040 --> 00:00:22,320
+Worauf bauen sie eigentlich hin?
+
+10
+00:00:22,320 --> 00:00:26,160
+Apple stellt keine Reihe von Computer-PhDs ein
+
+11
+00:00:26,160 --> 00:00:28,360
+um eine Art Technologie zu entwickeln
+
+12
+00:00:28,400 --> 00:00:30,360
+Nur für jemanden, der ein iPhone hochhält
+
+13
+00:00:30,360 --> 00:00:32,120
+bis ihre Schulter nachgibt.
+
+14
+00:00:32,120 --> 00:00:34,880
+Es musste ein anderes Stück Hardware in Arbeit sein.
+
+15
+00:00:34,880 --> 00:00:38,800
+WWDC, als Apple schließlich die Vision Pro angekündigt hat,
+
+16
+00:00:38,800 --> 00:00:41,360
+Sie zeigten es uns und wir konnten es uns ansehen,
+
+17
+00:00:41,360 --> 00:00:45,080
+Aber wir konnten es nicht anfassen, was eine exquisite Folter war.
+
+18
+00:00:45,080 --> 00:00:48,560
+Sobald Preo-Bestellungen geöffnet wurden, war ich sofort auf meinem iPhone.
+
+19
+00:00:48,560 --> 00:00:50,080
+Und am Launch-Tag habe ich mir einen
+
+20
+00:00:50,080 --> 00:00:52,120
+Die ersten Vision Pros in Dallas.
+

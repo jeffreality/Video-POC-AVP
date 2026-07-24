@@ -2,8 +2,6 @@
 //  Video_POCApp.swift
 //  Video-POC
 //
-//  Created by Jeffrey Berthiaume on 3/26/26.
-//
 
 import SwiftUI
 
@@ -19,18 +17,35 @@ struct Video_POCApp: App {
         .windowStyle(.volumetric)
 
         ImmersiveSpace(id: appModel.immersiveSpaceID) {
-            TemporalEchoVideoPanelView()
+            ActiveFeatureView()
                 .environment(appModel)
                 .onAppear {
-                    print("Immersive space appeared")
                     appModel.immersiveSpaceState = .open
                 }
                 .onDisappear {
-                    print("Immersive space disappeared")
                     appModel.immersiveSpaceState = .closed
+                    appModel.selectedFeature = nil
                 }
         }
         .immersionStyle(selection: .constant(.mixed), in: .mixed)
-        
+    }
+}
+
+private struct ActiveFeatureView: View {
+    @Environment(AppModel.self) private var appModel
+
+    var body: some View {
+        Group {
+            switch appModel.selectedFeature {
+            case .temporalEcho:
+                TemporalEchoVideoPanelView()
+            case .spatialSubtitles:
+                SpatialSubtitlesVideoPanelView()
+            case .transparentVideo:
+                TransparentVideoPanelView()
+            case nil:
+                EmptyView()
+            }
+        }
     }
 }

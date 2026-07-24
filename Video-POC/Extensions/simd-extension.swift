@@ -2,8 +2,6 @@
 //  simd-extension.swift
 //  Video-POC
 //
-//  Created by Jeffrey Berthiaume on 3/27/26.
-//
 
 import Foundation
 import simd
@@ -17,8 +15,12 @@ extension simd_float4x4 {
         simd_normalize(SIMD3<Float>(columns.2.x, columns.2.y, columns.2.z))
     }
 
-    func transformPoint(_ p: SIMD3<Float>) -> SIMD3<Float> {
-        let v = self * SIMD4<Float>(p.x, p.y, p.z, 1)
-        return SIMD3<Float>(v.x, v.y, v.z)
+    var up: SIMD3<Float> {
+        simd_normalize(SIMD3<Float>(columns.1.x, columns.1.y, columns.1.z))
+    }
+
+    func transformPoint(_ point: SIMD3<Float>) -> SIMD3<Float> {
+        let value = self * SIMD4<Float>(point.x, point.y, point.z, 1)
+        return SIMD3<Float>(value.x, value.y, value.z)
     }
 }

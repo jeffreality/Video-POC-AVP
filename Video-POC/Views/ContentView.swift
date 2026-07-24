@@ -2,12 +2,8 @@
 //  ContentView.swift
 //  Video-POC
 //
-//  Created by Jeffrey Berthiaume on 3/26/26.
-//
 
 import SwiftUI
-import RealityKit
-import RealityKitContent
 
 struct ContentView: View {
     @Environment(AppModel.self) private var appModel
@@ -15,39 +11,88 @@ struct ContentView: View {
     @Environment(\.dismissImmersiveSpace) private var dismissImmersiveSpace
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Temporal Echo Video")
-                .font(.title2)
+        VStack(alignment: .leading, spacing: 18) {
+            Text("Spatial Video POCs")
+                .font(.title)
+                .fontWeight(.semibold)
 
-            Button("Open Video") {
-                Task {
-                    guard appModel.immersiveSpaceState == .closed else { return }
-                    appModel.immersiveSpaceState = .inTransition
+            Text("Each experiment runs independently with its own video, assets, and processing path.")
+                .foregroundStyle(.secondary)
 
-                    let result = await openImmersiveSpace(id: appModel.immersiveSpaceID)
-                    print("openImmersiveSpace result:", result)
-                    
-                    switch result {
-                    case .opened:
-                        break
-                    case .userCancelled, .error:
-                        appModel.immersiveSpaceState = .closed
-                    @unknown default:
-                        appModel.immersiveSpaceState = .closed
-                    }
-                }
+            ForEach(AppModel.Feature.allCases) { feature in
+                featureButton(feature)
             }
 
-            Button("Close Video") {
-                Task {
-                    guard appModel.immersiveSpaceState == .open else { return }
-                    appModel.immersiveSpaceState = .inTransition
-                    await dismissImmersiveSpace()
-                    appModel.immersiveSpaceState = .closed
+            if appModel.immersiveSpaceState == .open {
+                Button(role: .destructive) {
+                    closeCurrentFeature()
+                } label: {
+                    Label("Close Current Demo", systemImage: "xmark.circle.fill")
+                        .frame(maxWidth: .infinity)
                 }
+                .buttonStyle(.bordered)
             }
         }
-        .padding()
+        .padding(28)
+        .frame(width: 620)
+    }
+
+    private func featureButton(_ feature: AppModel.Feature) -> some View {
+        Button {
+            open(feature)
+        } label: {
+            HStack(spacing: 16) {
+                Image(systemName: feature.systemImage)
+                    .font(.title2)
+                    .frame(width: 40)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(feature.title)
+                        .font(.headline)
+                    Text(feature.summary)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                        .multilineTextAlignment(.leading)
+                }
+
+                Spacer()
+
+                Image(systemName: "arrow.up.right")
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.vertical, 8)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.bordered)
+        .disabled(appModel.immersiveSpaceState != .closed)
+    }
+
+    private func open(_ feature: AppModel.Feature) {
+        Task { @MainActor in
+            guard appModel.immersiveSpaceState == .closed else { return }
+
+            appModel.selectedFeature = feature
+            appModel.immersiveSpaceState = .inTransition
+
+            switch await openImmersiveSpace(id: appModel.immersiveSpaceID) {
+            case .opened:
+                break
+            case .userCancelled, .error:
+                appModel.immersiveSpaceState = .closed
+                appModel.selectedFeature = nil
+            @unknown default:
+                appModel.immersiveSpaceState = .closed
+                appModel.selectedFeature = nil
+            }
+        }
+    }
+
+    private func closeCurrentFeature() {
+        Task { @MainActor in
+            guard appModel.immersiveSpaceState == .open else { return }
+            appModel.immersiveSpaceState = .inTransition
+            await dismissImmersiveSpace()
+        }
     }
 }
 
